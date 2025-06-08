@@ -53,7 +53,11 @@
             },
             "MediatR": {
               "target": "Package",
-              "version": "[12.2.0, )"
+              "version": "[12.5.0, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.1.0, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
@@ -75,13 +79,17 @@
               "target": "Package",
               "version": "[8.0.0, )"
             },
+            "Microsoft.Graph": {
+              "target": "Package",
+              "version": "[5.80.0, )"
+            },
             "Microsoft.Identity.Web": {
               "target": "Package",
               "version": "[2.15.5, )"
             },
             "QuestPDF": {
               "target": "Package",
-              "version": "[2023.12.1, )"
+              "version": "[2025.5.1, )"
             },
             "Stripe.net": {
               "target": "Package",

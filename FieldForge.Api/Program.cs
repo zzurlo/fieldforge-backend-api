@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
 using Microsoft.EntityFrameworkCore;
-using FieldForge.Api.Data;
-using MediatR;
-using FieldForge.Api.Services;
-using Stripe;
 using Azure.Communication.Sms;
+
+using MediatR;
+using Stripe;
+
+using FieldForge.Api.Data;
+using FieldForge.Api.Services;
+using FieldForge.Api.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
@@ -23,12 +26,20 @@ StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 var azureCommunicationConnectionString = builder.Configuration["AzureCommunication:ConnectionString"];
 builder.Services.AddSingleton(_ => new SmsClient(azureCommunicationConnectionString));
 
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 // Configure Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"))
     .EnableTokenAcquisitionToCallDownstreamApi()
     .AddInMemoryTokenCaches();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireOrganizationAdmin", policy =>
+        policy.RequireClaim("roles", "OrganizationAdmin"));
+});
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FieldForgeDb")));
@@ -52,16 +63,18 @@ builder.Services.AddAuthorization(options =>
         policy.RequireClaim("roles", "Biller"));
 });
 
-// Configure CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
+    options.AddPolicy("CorsPolicy",
         builder => builder
-            .AllowAnyOrigin()
+            .WithOrigins(
+                "http://localhost:3000",
+                "https://my-production-frontend"
+            )
             .AllowAnyMethod()
-            .AllowAnyHeader());
+            .AllowAnyHeader()
+            .WithExposedHeaders("Content-Disposition"));
 });
-
 
 
 var app = builder.Build();
@@ -73,8 +86,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.MapHub<DispatchHub>("/hubs/dispatch");
+
 app.UseHttpsRedirection();
-app.UseCors("AllowAll");
+app.UseCors("CorsPolicy");
 app.UseAuthorization();
 app.MapControllers();
 
