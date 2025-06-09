@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FieldForge.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+13b809193670c87c7937059c336fdf599c8c386c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+baab0a8b08e9128053a7dd598a4e541f2dd5af79")]
 [assembly: System.Reflection.AssemblyProductAttribute("FieldForge.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FieldForge.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
