@@ -1,8 +1,8 @@
 # .gitignore for .NET projects
 
 # Ignore build outputs
-bin/
-obj/
+**/bin/
+**/obj/
 
 # User-specific files
 *.user
@@ -31,10 +31,10 @@ Thumbs.db
 TestResults/
 
 # Azure settings
-appsettings.Development.json
 appsettings.Local.json
 local.settings.json
-appsettings.json
+**/appsettings.json
+**/appsettings.Development.json
 
 # Rider
 .idea/
