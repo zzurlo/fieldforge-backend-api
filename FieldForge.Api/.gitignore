@@ -1,0 +1,47 @@
+# .gitignore for .NET projects
+
+# Ignore build outputs
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ASP.NET Secrets
+secrets.json
+
+# Dotnet tools
+.dotnet-tools/
+
+# Visual Studio files
+.vscode/
+*.code-workspace
+
+# Logs
+*.log
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Test results
+TestResults/
+
+# Azure settings
+appsettings.Development.json
+appsettings.Local.json
+local.settings.json
+
+# Rider
+.idea/
+
+# Package management
+packages/
+*.nupkg
+
+# Others
+*.swp
+*.bak
