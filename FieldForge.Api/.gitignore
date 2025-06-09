@@ -35,7 +35,7 @@ appsettings.Local.json
 local.settings.json
 **/appsettings.json
 **/appsettings.Development.json
-
+FieldForge.API/appsettings.json
 # Rider
 .idea/
 
